@@ -77,44 +77,6 @@ function draw(file, typemap, text) {
   fs.writeFileSync(file, cvs.toBuffer());
 }
 
-const text =
-      'foreach :: (k × v -> k × v -> Ordering)          -- | Comparison function\n' +
-      '        -> (v -> Boolean)                        -- | Filtering function\n' +
-      '        -> Lens s (Map k v)\n' +
-      '        -> (Lens s v -> (s -> s) -> Component s) -- | (s -> s) deletes the current element\n' +
-      '        -> Component s\n';
-
-const zoom =
-      'zoom :: Lens st s -> Component s -> Component st';
-
-// const zoomUn =
-//       'zoomUn :: Lens st s -> (((Component st -> Component s) -> Component s) -> Component st';
-
-// const zoomUn =
-//       'zoomUn :: Lens st s\n' +
-//       '       -> (((Component st -> Component s) -> Component s)\n' +
-//       '       -> Component st';
-
-// const zoomUn =
-//       'type UnZoom st s = Component st -> Component s\n' +
-//       ' \n' +
-//       'zoomUn :: Lens st s\n' +
-//       '       -> (UnZoom st s -> Component s)\n' +
-//       '       -> Component st';
-
-const zoomUn =
-      'type UnZoom st s = Component st -> Component s\n' +
-      ' \n' +
-      'zoom   :: Lens st s -> Component s -> Component st\n' +
-      'zoomUn :: Lens st s -> (UnZoom st s -> Component s) -> Component st';
-
-const zoomR =
-      '         {\n' +
-      '           Lens su a\n' +
-      'zoomR ::   Lens su b -> Component { a, b, c } -> Component su\n' +
-      '           Lens su c\n'+
-      '         }\n';
-
 if (process.argv.length < 4) {
   console.log('Usage: node index.js <typemap.json> <out.png>');
 }
