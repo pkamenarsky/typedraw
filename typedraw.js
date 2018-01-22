@@ -3,14 +3,6 @@
 const canvas = require('canvas');
 const fs = require('fs');
 
-function intersperse(a, x) {
-  return [].concat(...a.map(e => [x, e])).slice(1);
-}
-
-function splitConcat(words, str) {
-  return [].concat.apply([], words.map((w) => intersperse(w.split(str), str)));
-}
-
 function draw(file, typemap, text) {
   const lines = text.split(/\r?\n/);
 
@@ -85,6 +77,6 @@ if (process.argv.length < 3) {
 else {
   const typemap = JSON.parse(fs.readFileSync(process.argv[2], 'utf-8'));
   const data = fs.readFileSync('/dev/stdin').toString();
-  console.log('Writing to ', process.argv[3]);
+  console.log('Writing to', process.argv[3]);
   draw(process.argv[3], typemap, data);
 }
