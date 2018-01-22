@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const canvas = require('canvas');
 const fs = require('fs');
 
@@ -77,8 +79,8 @@ function draw(file, typemap, text) {
   fs.writeFileSync(file, cvs.toBuffer());
 }
 
-if (process.argv.length < 4) {
-  console.log('Usage: node index.js <typemap.json> <out.png>');
+if (process.argv.length < 3) {
+  console.log('Usage: typedraw <typemap.json> <out.png>');
 }
 else {
   const typemap = JSON.parse(fs.readFileSync(process.argv[2], 'utf-8'));

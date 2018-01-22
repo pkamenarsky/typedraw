@@ -1,13 +1,32 @@
 {
   "name": "typedraw",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "1.0.1",
+  "description": "An experimental visualization of types",
+  "main": "typedraw.js",
   "scripts": {
-    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Philip Kamenarsky",
+  "bin": {
+    "typedraw": "typedraw.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pkamenarsky/typedraw.git"
+  },
+  "homepage": {
+    "url": "https://github.com/pkamenarsky/typedraw"
+  },
+  "bugs": {
+    "url": "https://github.com/pkamenarsky/typedraw/issues"
+  },
+  "keywords": [
+    "types",
+    "visualization",
+    "haskell",
+    "purescript",
+    "elm"
+  ],
+  "author": "p.kamenarsky@gmail.com",
   "license": "MIT",
   "dependencies": {
     "canvas": "^1.6.9"

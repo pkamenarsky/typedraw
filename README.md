@@ -9,15 +9,15 @@ An experimental visualization of types.
 
 Install [Fira Code](https://github.com/tonsky/FiraCode). Clone this repository, then:
 
-    npm install
+    npm -g install .
 
 ## Usage
 
-    node typedraw.js <typemap.json> <out.png>
+    typedraw <typemap.json> <out.png>
 
 `typedraw` reads from stdin, i.e. you can do the following:
 
-    cat examples/foreach | node typedraw.js examples/typemap2.json out.png
+    cat examples/foreach | typedraw examples/typemap2.json out.png
 
 `typedraw` replaces all occurences of a type with a visual shape described in
 a typemap.
