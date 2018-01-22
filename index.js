@@ -28,9 +28,6 @@ function draw(file, typemap, text) {
   const size = 27;
 
   lines.forEach((line, line_index) => {
-    // ctx.fillText(line, x, y + line_index * leading);
-
-    let adjust = 0;
     Object.entries(typemap).forEach(([k, v]) => {
       const re = new RegExp('\\b' + k + '\\b', 'g');
 
@@ -88,6 +85,23 @@ const typemap = {
   'v': [
     [ 'rect', '#F7931E', 0.25, 0.25, 0.5, 0.5 ]
   ],
+
+  'su': [
+    [ 'rect', '#333', 0, 0, 1, 1 ],
+    [ 'rect', '#29ABE2', 0.25, 0.25, 0.25, 0.25 ],
+    [ 'rect', '#FBB03B', 0.5, 0.25, 0.25, 0.25 ],
+    [ 'rect', '#D4145A', 0.25, 0.5, 0.5, 0.25 ]
+  ],
+
+  'a': [
+    [ 'rect', '#29ABE2', 0.25, 0.25, 0.25, 0.25 ]
+  ],
+  'b': [
+    [ 'rect', '#FBB03B', 0.25, 0.25, 0.25, 0.25 ]
+  ],
+  'c': [
+    [ 'rect', '#D4145A', 0.25, 0.5, 0.5, 0.25 ]
+  ],
 };
 
 const typemap2 = {
@@ -103,20 +117,34 @@ const typemap2 = {
   ],
   'v': [
     [ 'circle', '#F7931E', 0.5, 0.5, 0.25 ]
-  ]
+  ],
+
+  'su': [
+    [ 'circle', '#333', 0.5, 0.5, 0.5 ],
+    [ 'circle', '#D4145A', 0.5, 0.67, 0.15 ],
+    [ 'circle', '#D4145A', 0.3, 0.4, 0.15 ],
+    [ 'circle', '#D4145A', 0.7, 0.4, 0.15 ]
+  ],
 };
 
 const text =
-      'foreach :: (k × v -> k × v -> Ordering)\n' +
-      '        -> (v -> Boolean)\n' +
-      '        -> Lens st s                              -- | s ~ Map k v\n' +
-      '        -> (Lens st v -> (st -> st) -> Component st)\n' +
-      '        -> Component st\n';
+      'foreach :: (k × v -> k × v -> Ordering)          -- | Comparison function\n' +
+      '        -> (v -> Boolean)                        -- | Filtering function\n' +
+      '        -> Lens s (Map k v)\n' +
+      '        -> (Lens s v -> (s -> s) -> Component s) -- | (s -> s) deletes the current element\n' +
+      '        -> Component s\n';
 
 const zoom =
       'zoom :: Lens st s -> Component s -> Component st';
 
 const zoomUn =
-      'zoomUn :: Lens st s -> (((Component u -> Component s) -> Component s) -> Component st';
+      'zoomUn :: Lens st s -> (((Component st -> Component s) -> Component s) -> Component st';
 
-draw('out.png', typemap2, zoomUn);
+const zoomR =
+      '         {\n' +
+      '           Lens su a\n' +
+      'zoomR ::   Lens su b -> Component { a, b, c } -> Component su\n' +
+      '           Lens su c\n'+
+      '         }\n';
+
+draw('out.png', typemap, zoomR);
