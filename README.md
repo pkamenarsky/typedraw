@@ -3,7 +3,7 @@
 An experimental visualization of types.
 
 ![Type visualization 1](out.png)
-![Type visualization 2](out2.png)
+![Type visualization 2](out-2.png)
 
 ## Installation
 
