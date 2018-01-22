@@ -2,7 +2,8 @@
 
 An experimental visualization of types.
 
-![Type visualization](out.png)
+![Type visualization 1](out.png)
+![Type visualization 2](out2.png)
 
 ## Installation
 
@@ -43,3 +44,5 @@ Only two shapes are supported currently, `rect`s:
 and `circle`s:
 
     [ "circle", color, x, y, radius ] // coordinates are in the 0 - 1 range
+
+Check out the example `typemap1.json` and `typemap2.json` files.
