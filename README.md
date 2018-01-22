@@ -5,9 +5,6 @@ An experimental visualization of types.
 ![Type visualization 1](images/out.png)
 ![Type visualization 2](images/out-2.png)
 
-`typedraw` replaces all occurences of a given type with a shape described in
-a typemap.
-
 ## Installation
 
 Install [Fira Code](https://github.com/tonsky/FiraCode). Clone this repository, then:
@@ -21,6 +18,9 @@ Install [Fira Code](https://github.com/tonsky/FiraCode). Clone this repository, 
 `typedraw` reads from stdin, i.e. you can do the following:
 
     cat examples/foreach | node typedraw.js examples/typemap2.json out.png
+
+`typedraw` replaces all occurences of a type with a visual shape described in
+a typemap.
 
 ## Typemaps
 
