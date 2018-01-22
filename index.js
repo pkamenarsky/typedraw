@@ -137,8 +137,26 @@ const text =
 const zoom =
       'zoom :: Lens st s -> Component s -> Component st';
 
+// const zoomUn =
+//       'zoomUn :: Lens st s -> (((Component st -> Component s) -> Component s) -> Component st';
+
+// const zoomUn =
+//       'zoomUn :: Lens st s\n' +
+//       '       -> (((Component st -> Component s) -> Component s)\n' +
+//       '       -> Component st';
+
+// const zoomUn =
+//       'type UnZoom st s = Component st -> Component s\n' +
+//       ' \n' +
+//       'zoomUn :: Lens st s\n' +
+//       '       -> (UnZoom st s -> Component s)\n' +
+//       '       -> Component st';
+
 const zoomUn =
-      'zoomUn :: Lens st s -> (((Component st -> Component s) -> Component s) -> Component st';
+      'type UnZoom st s = Component st -> Component s\n' +
+      ' \n' +
+      'zoom   :: Lens st s -> Component s -> Component st\n' +
+      'zoomUn :: Lens st s -> (UnZoom st s -> Component s) -> Component st';
 
 const zoomR =
       '         {\n' +
@@ -147,4 +165,4 @@ const zoomR =
       '           Lens su c\n'+
       '         }\n';
 
-draw('out.png', typemap, zoomR);
+draw('out.png', typemap2, zoomUn);
