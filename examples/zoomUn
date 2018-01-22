@@ -1,0 +1,4 @@
+type UnZoom st s = Component st -> Component s
+
+zoom   :: Lens st s -> Component s -> Component st
+zoomUn :: Lens st s -> (UnZoom st s -> Component s) -> Component st

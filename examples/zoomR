@@ -1,0 +1,4 @@
+         { x :: Lens su a
+zoomR :: , y :: Lens su b -> Component { x :: a, y :: b, z :: c } -> Component su
+         , z :: Lens su c
+         }

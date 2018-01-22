@@ -1,0 +1,1 @@
+zoom :: Lens st s -> Component s -> Component st

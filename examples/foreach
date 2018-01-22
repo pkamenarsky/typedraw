@@ -1,0 +1,5 @@
+foreach :: (k × v -> k × v -> Ordering)          -- | Comparison function
+        -> (v -> Boolean)                        -- | Filtering function
+        -> Lens s (Map k v)
+        -> (Lens s v -> (s -> s) -> Component s) -- | (s -> s) deletes the current element
+        -> Component s
