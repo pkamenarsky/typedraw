@@ -10,15 +10,10 @@ function splitConcat(words, str) {
 }
 
 function draw(file, typemap, text) {
-  const cvs = new canvas(1280, 480);
-  const ctx = cvs.getContext('2d');
+  const lines = text.split(/\r?\n/);
 
-  const lines = text.match(/[^\r\n]+/g);
-
-  ctx._setFont('500', 'normal', 18, 'px', 'Fira Code');
-
-  const x = 20;
-  const y = 20;
+  const x = 36;
+  const y = 36;
 
   const spacing = 10.8;
   const leading = 36;
@@ -26,6 +21,17 @@ function draw(file, typemap, text) {
   const offset_y = -19;
   const offset_x = 3;
   const size = 27;
+
+  let max_length = 0;
+
+  lines.forEach((line) => {
+    max_length = Math.max(max_length, line.length);
+  });
+
+  const cvs = new canvas(x + (max_length + 3) * spacing, y + lines.length * leading);
+  const ctx = cvs.getContext('2d');
+
+  ctx._setFont('500', 'normal', 18, 'px', 'Fira Code');
 
   lines.forEach((line, line_index) => {
     Object.entries(typemap).forEach(([k, v]) => {
@@ -71,62 +77,6 @@ function draw(file, typemap, text) {
   fs.writeFileSync(file, cvs.toBuffer());
 }
 
-const typemap = {
-  'st1': [
-    [ 'rect', '#333', 0, 0, 1, 1 ],
-    [ 'rect', '#D4145A', 0.25, 0.25, 0.5, 0.5 ]
-  ],
-  's': [
-    [ 'rect', '#D4145A', 0.25, 0.25, 0.5, 0.5 ]
-  ],
-  'k': [
-    [ 'rect', '#29ABE2', 0.25, 0.25, 0.5, 0.5 ]
-  ],
-  'v': [
-    [ 'rect', '#F7931E', 0.25, 0.25, 0.5, 0.5 ]
-  ],
-
-  'su': [
-    [ 'rect', '#333', 0, 0, 1, 1 ],
-    [ 'rect', '#29ABE2', 0.25, 0.25, 0.25, 0.25 ],
-    [ 'rect', '#FBB03B', 0.5, 0.25, 0.25, 0.25 ],
-    [ 'rect', '#D4145A', 0.25, 0.5, 0.5, 0.25 ]
-  ],
-
-  'a': [
-    [ 'rect', '#29ABE2', 0.25, 0.25, 0.25, 0.25 ]
-  ],
-  'b': [
-    [ 'rect', '#FBB03B', 0.25, 0.25, 0.25, 0.25 ]
-  ],
-  'c': [
-    [ 'rect', '#D4145A', 0.25, 0.5, 0.5, 0.25 ]
-  ],
-};
-
-const typemap2 = {
-  'st': [
-    [ 'circle', '#333', 0.5, 0.5, 0.5 ],
-    [ 'circle', '#D4145A', 0.5, 0.5, 0.25 ]
-  ],
-  's': [
-    [ 'circle', '#D4145A', 0.5, 0.5, 0.25 ]
-  ],
-  'k': [
-    [ 'circle', '#29ABE2', 0.5, 0.5, 0.25 ]
-  ],
-  'v': [
-    [ 'circle', '#F7931E', 0.5, 0.5, 0.25 ]
-  ],
-
-  'su': [
-    [ 'circle', '#333', 0.5, 0.5, 0.5 ],
-    [ 'circle', '#D4145A', 0.5, 0.67, 0.15 ],
-    [ 'circle', '#D4145A', 0.3, 0.4, 0.15 ],
-    [ 'circle', '#D4145A', 0.7, 0.4, 0.15 ]
-  ],
-};
-
 const text =
       'foreach :: (k × v -> k × v -> Ordering)          -- | Comparison function\n' +
       '        -> (v -> Boolean)                        -- | Filtering function\n' +
@@ -165,4 +115,12 @@ const zoomR =
       '           Lens su c\n'+
       '         }\n';
 
-draw('out.png', typemap2, zoomUn);
+if (process.argv.length < 4) {
+  console.log('Usage: node index.js <typemap.json> <out.png>');
+}
+else {
+  const typemap = JSON.parse(fs.readFileSync(process.argv[2], 'utf-8'));
+  const data = fs.readFileSync('/dev/stdin').toString();
+  console.log('Writing to ', process.argv[3]);
+  draw(process.argv[3], typemap, data);
+}
