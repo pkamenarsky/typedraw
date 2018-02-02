@@ -6,7 +6,7 @@ const fs = require('fs');
 function draw(file, typemap, text) {
   const lines = text.split(/\r?\n/);
 
-  const x = 36;
+  const x = 2;
   const y = 36;
 
   const spacing = 10.8;
